@@ -28,7 +28,7 @@ var browsers = [
 	'> 3%'
 ];
 // sassのコンパイル
-gulp.task('sass', function () {
+gulp.task('sass', () => {
 	return gulp.src('../src/sass/**/*.scss')
 	.pipe(sourcemaps.init())
 	.pipe(sass({
@@ -44,14 +44,14 @@ gulp.task('sass', function () {
 /**
  * css スプライト
  */
-gulp.task('sprite', function () {
+gulp.task('sprite', () => {
   var spriteData = gulp.src('../src/assets/img/_sprite/*.png') //スプライトにしたい画像
   .pipe(spritesmith({
     imgName: 'sprite.png', //スプライトの画像
     cssName: '../sass/_sprite.scss', //生成されるscss
     imgPath: '../assets/img/sprite/sprite.png', //生成されるscssに記載されるパス
     cssFormat: 'scss', //フォーマット
-    cssVarMap: function (sprite) {
+    cssVarMap: (sprite) => {
       sprite.name = 'sprite-' + sprite.name; //VarMap(生成されるScssにいろいろな変数の一覧を生成)
     }
   }));
