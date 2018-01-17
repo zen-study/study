@@ -1,0 +1,251 @@
+//* mixins, variable etc.. */
+@import "partials/utils";
+
+//* css flame work @see http://bourbon.io/ */
+@import 'partials/_bourbon/_bourbon.scss';
+
+//* grid css flame work @see http://neat.bourbon.io/ */
+@import "partials/_neat/neat";
+
+//* reset style */
+@import "normalize";
+
+/* base
+----------------------------------*/
+html, * {
+  box-sizing: border-box;
+}
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  @include base-font;
+  color: #333333;
+  line-height: 1.6;
+  font-size: 16px;
+  word-wrap: break-word;
+  -webkit-text-size-adjust: 100%;
+}
+
+//* bootstrap grid only @see https://bootbites.com/articles/bootstrap-4-grid-only/
+@import "partials/_bootstrap/_functions.scss";
+@import "partials/_bootstrap/_variables.scss";
+@import "partials/_bootstrap/_mixins.scss";
+
+$grid-breakpoints: (
+ xs: 0,
+ sm: 544px,
+ md: 767px,
+ lg: 992px,
+ xl: 1200px
+);
+@include _assert-ascending($grid-breakpoints, "$grid-breakpoints");
+
+$container-max-widths: (
+ sm: 576px,
+ md: 720px,
+ lg: 940px,
+ xl: 1140px
+);
+@include _assert-ascending($container-max-widths, "$container-max-widths");
+
+/* layout
+----------------------------------*/
+@import "partials/_bootstrap/_grid.scss";
+
+.col-xs-1-5, .col-sm-1-5, .col-md-1-5, .col-lg-1-5, .col-xs-2-5, .col-sm-2-5, .col-md-2-5, .col-lg-2-5, .col-xs-3-5, .col-sm-3-5, .col-md-3-5, .col-lg-3-5, .col-xs-4-5, .col-sm-4-5, .col-md-4-5, .col-lg-4-5 {
+  position: relative;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.col-xs-1-5 {
+  width: 20%;
+  float: left;
+}
+
+.col-xs-2-5 {
+  width: 40%;
+  float: left;
+}
+
+.col-xs-3-5 {
+  width: 60%;
+  float: left;
+}
+
+.col-xs-4-5 {
+  width: 80%;
+  float: left;
+}
+
+@media (max-width: 767px) {
+  .col-sm-1-5 {
+    width: 20%;
+    float: left;
+  }
+  .col-sm-2-5 {
+    width: 40%;
+    float: left;
+  }
+  .col-sm-3-5 {
+    width: 60%;
+    float: left;
+  }
+  .col-sm-4-5 {
+    width: 80%;
+    float: left;
+  }
+}
+
+@media (min-width: 768px) {
+  .col-md-1-5 {
+    width: 20%;
+    float: left;
+  }
+  .col-md-2-5 {
+    width: 40%;
+    float: left;
+  }
+  .col-md-3-5 {
+    width: 60%;
+    float: left;
+  }
+  .col-md-4-5 {
+    width: 80%;
+    float: left;
+  }
+}
+
+.no-wrap-gutters {
+  margin-right: 0;
+  margin-left: 0;
+}
+
+.no-gutters {
+  margin-right: 0;
+  margin-left: 0;
+  > .col, > [class*="col-"] {
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
+
+.large-gutters {
+  > .col:nth-child(odd), > [class*="col-"]:nth-child(odd) {
+    padding-right: 20px;
+  }
+   > .col:nth-child(even), > [class*="col-"]:nth-child(even) {
+    padding-left: 20px;
+  }
+  @include mq(SP) {
+    > .col:nth-child(odd), > [class*="col-"]:nth-child(odd) {
+      padding-right: 15px;
+    }
+    > .col:nth-child(even), > [class*="col-"]:nth-child(even) {
+      padding-left: 15px;
+    }
+  }
+}
+
+.small-gutters {
+  > .col, > [class*="col-"] {
+    padding-right: 5px;
+    padding-left: 5px;
+  }
+}
+
+.contents {
+  padding-bottom: 70px;
+  @include mq(SP) {
+    padding-bottom: 50px;
+  }
+}
+
+.l-container {
+  @include la-size;
+  @include cf;
+}
+
+.s-container {
+  width: 960px;
+  min-width: 960px;
+  @include m-center;
+  @include mq(SP) {
+  width: 100%;
+  min-width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  }
+}
+
+/* utils
+----------------------------------*/
+* a {
+  word-break: break-all;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all .3s;
+  color: inherit;
+  &:visited {
+    // color: inherit;
+  }
+  &:hover {
+    opacity: $opacity;
+  }
+}
+img {
+  max-width: 100%;
+  height: auto;
+  line-height: 1;
+}
+
+button[class*="btn"] {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  padding: 0;
+  appearance: none;
+  a {
+    color: inherit;
+  }
+}
+
+.pc {
+  display: block !important;
+  @include mq(SP) {
+    display: none !important;
+  }
+}
+
+.sp {
+  display: none !important;
+  @include mq(SP) {
+    display: block !important;
+  }
+}
+
+.text {
+  &-center {
+    text-align: center;
+  }
+  &-right {
+    text-align: right;
+  }
+  &-left {
+    text-align: left;
+  }
+  &-primary {
+    color: $red;
+  }
+  &-small {
+    font-size: 75%;
+  }
+}
+
+.clear-fix {
+  @include cf;
+}
