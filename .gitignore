@@ -1,0 +1,5 @@
+# .DS_Store」ファイルを除外
+*.DS_Store
+
+# node_modulesフォルダを除外
+node_modules/
