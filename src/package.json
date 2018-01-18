@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "install": "npm i browser-sync -g",
+    "start": "browser-sync start --server '../htdocs' --files '../htdocs/**/*' & gulp",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -11,6 +13,7 @@
   "license": "ISC",
   "devDependencies": {
     "autoprefixer": "^7.2.5",
+    "browser-sync": "^2.23.5",
     "gulp": "^3.9.1",
     "gulp-postcss": "^7.0.1",
     "gulp-prettify": "^0.5.0",

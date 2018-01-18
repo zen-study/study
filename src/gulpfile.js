@@ -10,6 +10,11 @@ var postcss      = require('gulp-postcss');
 var autoprefixer = require('autoprefixer');
 var spritesmith  = require('gulp.spritesmith');
 
+// 設定ファイルの読み込み
+var config = require('./gulp-config');
+var src    = config.src;
+var dest   = config.dest;
+
 /*
 	Tasks
 */
@@ -18,7 +23,7 @@ gulp.task('default', ['sass', 'watch', 'sprite']);
 
 // sassを監視し、更新を反映
 gulp.task('watch', () => {
-	gulp.watch(['../src/sass/**/*.scss'], () => {
+	gulp.watch([src.cssFiles], () => {
 		gulp.start(['sass']);
 	});
 });
@@ -29,7 +34,7 @@ var browsers = [
 ];
 // sassのコンパイル
 gulp.task('sass', () => {
-	return gulp.src('../src/sass/**/*.scss')
+	return gulp.src(src.cssFiles)
 	.pipe(sourcemaps.init())
 	.pipe(sass({
 		"outputStyle" : 'expanded'
@@ -37,15 +42,15 @@ gulp.task('sass', () => {
 	.pipe(postcss([
 		require('autoprefixer')({browsers: browsers})
 		]))
-	.pipe(sourcemaps.write('../../../src/maps/css'))
-  .pipe(gulp.dest('../htdocs/assets/css/'));
+	.pipe(sourcemaps.write('./'))
+  .pipe(gulp.dest(dest.cssDir));
 });
 
 /**
  * css スプライト
  */
 gulp.task('sprite', () => {
-  var spriteData = gulp.src('../src/assets/img/_sprite/*.png') //スプライトにしたい画像
+  var spriteData = gulp.src(src.spriteFiles) //スプライトにしたい画像
   .pipe(spritesmith({
     imgName: 'sprite.png', //スプライトの画像
     cssName: '../sass/_sprite.scss', //生成されるscss
@@ -55,8 +60,8 @@ gulp.task('sprite', () => {
       sprite.name = 'sprite-' + sprite.name; //VarMap(生成されるScssにいろいろな変数の一覧を生成)
     }
   }));
-  spriteData.img.pipe(gulp.dest('../img/_sprite-image/')); //imgNameで指定したスプライト画像の保存先
-  spriteData.css.pipe(gulp.dest('../src/sass/')); //cssNameで指定したcssの保存先
+  spriteData.img.pipe(gulp.dest(dest.spriteDir)); //imgNameで指定したスプライト画像の保存先
+  spriteData.css.pipe(gulp.dest(src.cssDir)); //cssNameで指定したcssの保存先
 });
 
 
